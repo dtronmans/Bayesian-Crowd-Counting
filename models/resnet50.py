@@ -9,6 +9,7 @@ model_urls = {
     'resnet50': 'https://download.pytorch.org/models/resnet50-19c8e357.pth',
 }
 
+
 class ModifiedResNet(ResNet):
     def __init__(self, block, layers):
         super(ModifiedResNet, self).__init__(block, layers)
@@ -31,9 +32,12 @@ class ModifiedResNet(ResNet):
         x = self.layer3(x)
         x = self.layer4(x)
 
-        x = F.upsample_bilinear(x, scale_factor=2)
+        # Optionally, add additional upsampling if needed
+        x = F.interpolate(x, scale_factor=2, mode='bilinear', align_corners=False)
+
         x = self.reg_layer(x)
         return torch.abs(x)
+
 
 def resnet50():
     """ResNet-50 model
