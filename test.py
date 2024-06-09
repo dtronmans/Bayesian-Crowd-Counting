@@ -26,7 +26,7 @@ if __name__ == '__main__':
     datasets = Crowd(os.path.join(args.data_dir, 'test'), 512, 8, is_gray=False, method='val')
     dataloader = torch.utils.data.DataLoader(datasets, 1, shuffle=False,
                                              num_workers=8, pin_memory=False)
-    model = vgg19()
+    model = resnet50()
     device = torch.device('cuda')
     model.to(device)
     model.load_state_dict(torch.load(os.path.join(args.save_dir, 'best_model.pth'), device))
