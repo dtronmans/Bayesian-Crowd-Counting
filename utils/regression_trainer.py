@@ -107,7 +107,6 @@ class RegTrainer(Trainer):
 
             with torch.set_grad_enabled(True):
                 outputs = self.model(inputs)
-                print(outputs.shape)
                 prob_list = self.post_prob(points, st_sizes)
                 loss = self.criterion(prob_list, targets, outputs)
 
