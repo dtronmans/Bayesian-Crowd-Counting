@@ -1,3 +1,4 @@
+from models.vgg import vgg19
 from utils.trainer import Trainer
 from utils.helper import Save_Handle, AverageMeter
 import os
@@ -52,7 +53,7 @@ class RegTrainer(Trainer):
                                           num_workers=args.num_workers*self.device_count,
                                           pin_memory=(True if x == 'train' else False))
                             for x in ['train', 'val']}
-        self.model = resnet50()
+        self.model = vgg19()
         self.model.to(self.device)
         self.optimizer = optim.Adam(self.model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
 
@@ -106,6 +107,7 @@ class RegTrainer(Trainer):
 
             with torch.set_grad_enabled(True):
                 outputs = self.model(inputs)
+                print(outputs.shape)
                 prob_list = self.post_prob(points, st_sizes)
                 loss = self.criterion(prob_list, targets, outputs)
 
