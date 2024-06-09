@@ -33,7 +33,7 @@ class ModifiedResNet(ResNet):
         x = self.layer4(x)
 
         # Optionally, add additional upsampling if needed
-        x = F.interpolate(x, scale_factor=2, mode='bilinear', align_corners=False)
+        x = F.interpolate(x, scale_factor=4, mode='bilinear', align_corners=False)
 
         x = self.reg_layer(x)
         return torch.abs(x)
