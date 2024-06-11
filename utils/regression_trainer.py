@@ -1,4 +1,5 @@
 from models.vgg import vgg19
+from resnet18 import resnet18
 from utils.trainer import Trainer
 from utils.helper import Save_Handle, AverageMeter
 import os
@@ -53,7 +54,7 @@ class RegTrainer(Trainer):
                                           num_workers=args.num_workers*self.device_count,
                                           pin_memory=(True if x == 'train' else False))
                             for x in ['train', 'val']}
-        self.model = resnet50()
+        self.model = resnet18()
         self.model.to(self.device)
         self.optimizer = optim.Adam(self.model.parameters(), lr=args.lr, weight_decay=args.weight_decay)
 
