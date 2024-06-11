@@ -3,6 +3,7 @@ import os
 import numpy as np
 from datasets.crowd import Crowd
 from models.vgg import vgg19
+from models.resnet50 import ResNet, resnet50
 import argparse
 
 args = None
